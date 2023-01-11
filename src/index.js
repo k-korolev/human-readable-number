@@ -1,17 +1,17 @@
 module.exports = function toReadable (n) {
     // 1. setting things up
-    let str = n.toString().split('');
-    let size = str.length;
-    let a = Number(size >= 3 ? str.slice(-3, -2) : 0);
-    let b = Number(size >= 2 ? str.slice(-2, -1) : 0);
-    let c = Number(str.slice(-1));
-    let result;
-
-    // 2. convert to HRN
     const ones = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
     const teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-    const dozens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+    const dozens = ['empty', 'empty', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
 
+    const str = n.toString().split('');
+    const size = str.length;
+    let a = Number(size >= 3 ? str.slice(-3, -2) : 0); // getting number of hundreds
+    let b = Number(size >= 2 ? str.slice(-2, -1) : 0); // getting number of tens
+    let c = Number(str.slice(-1)); // getting number of ones
+    let result;
+    
+    // 2. convert to HRN
     if (b === 0) {
         a = c === 0 ? ones[a] + ' hundred' : ones[a] + ' hundred '; // remove spaces in whole hundreds
         b = '';
